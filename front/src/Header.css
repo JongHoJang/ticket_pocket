@@ -1,0 +1,43 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+    text-decoration: none;
+    color: black;
+}
+
+.header-container {
+    height: auto;
+    text-align: center;
+    /*background-color: thistle;*/
+    border-bottom: 1px solid #999;
+    box-sizing: border-box;
+}
+
+.header-logo h1 {
+    font: bold 40px 'arial';
+    padding-top: 14px;
+    letter-spacing: 2px;
+}
+
+.header-logo p {
+    font: bold 12px 'arial';
+    letter-spacing: 2px;
+    margin-top: -1px;
+}
+
+.header-gnb ul {
+    margin-top: 40px;
+}
+
+.header-gnb ul li {
+    display: inline-block;
+    padding-bottom: 14px;
+}
+
+.menu-item {
+    font: 14px 'arial';
+    color: #999999;
+    margin: 0px 14px;
+    letter-spacing: 1px;
+}
