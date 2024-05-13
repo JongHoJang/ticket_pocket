@@ -9,6 +9,7 @@ import Login from "./Login";
 import MovieList from "./MovieList";
 import CreateMovie from "./CreateMovie"
 import Footer from "./Footer";
+import MovieSearch from "./MovieSearch";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path='/edit/:id' element={<Update />} />
           <Route path='/movielist' element={<MovieList />} />
           <Route path='/createmovie' element={<CreateMovie />} />
+          <Route path='/moviesearch' element={<MovieSearch />} />
         </Routes>
           <Footer />
       </BrowserRouter>
