@@ -16,7 +16,7 @@ const MovieSearch = ({onMovieSelect}) => {
         const url = `http://www.omdbapi.com/?apikey=f618de14&s=${searchValue}`;
 
         const response = await fetch(url);
-        const responseJson = await  response.json();
+        const responseJson = await response.json();
 
         if (responseJson.Search) {  // 영화가 발견되면
             console.log(responseJson);
@@ -70,7 +70,7 @@ const MovieSearch = ({onMovieSelect}) => {
                             className="movie-item"
                             onClick={() => handleMovieClick(movie)}
                         >
-                            <img src={movie.Poster} alt={movie.Title} />
+                            <img src={movie.Poster} alt={movie.Title}/>
                             <p className="movie-sub">{movie.Title} ({movie.Year})</p>
                         </div>
                     ))}

@@ -8,11 +8,10 @@ function Signup() {
         name: '',
         email: '',
         password: '',
-        confirm_password:''
+        confirm_password: ''
     })
 
     const navigate = useNavigate();
-
 
 
     const handleSubmit = (e) => {
@@ -25,7 +24,7 @@ function Signup() {
             })
             .catch(err => console.log(err));
     }
-    return(
+    return (
         <div className='add-user-container'>
             <form onSubmit={handleSubmit} className='add-user-form'>
                 <h2>Add User</h2>

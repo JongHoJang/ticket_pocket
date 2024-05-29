@@ -38,11 +38,12 @@ function MovieSearch() {
 
         fetchAllMovies().then(uniqueMovies => {
             console.log(uniqueMovies); // 결과 출력
-        });    }, []); // 페이지가 변경되지 않으므로 빈 배열을 두어 한 번만 호출되도록 설정
+        });
+    }, []); // 페이지가 변경되지 않으므로 빈 배열을 두어 한 번만 호출되도록 설정
 
 
     const onChange = (e) => {
-        const { value } = e.target;
+        const {value} = e.target;
         setSearch(value);
 
         // 입력된 값에 따라 filterTitle 업데이트
@@ -50,7 +51,7 @@ function MovieSearch() {
             setFilterTitle([]); // 검색어가 비어있으면 빈 배열로 설정하여 아무것도 보여주지 않음
         } else {
             const filteredMovies = movieList.filter(movie =>
-                movie.title.toLowerCase().replace(" ","").includes(value.toLowerCase().replace(" ",""))
+                movie.title.toLowerCase().replace(" ", "").includes(value.toLowerCase().replace(" ", ""))
             );
             setFilterTitle(filteredMovies);
         }
@@ -58,12 +59,12 @@ function MovieSearch() {
 
     return (
         <div>
-            <input type="text" value={search} onChange={onChange} placeholder="검색..." />
+            <input type="text" value={search} onChange={onChange} placeholder="검색..."/>
             {/* 검색된 영화 목록 출력 */}
             <div>
-            {filterTitle.map(movie => <div key={movie.id}>
-                <span>{movie.title}</span>
-                <img src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`} alt={movie.title}/></div>)}
+                {filterTitle.map(movie => <div key={movie.id}>
+                    <span>{movie.title}</span>
+                    <img src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`} alt={movie.title}/></div>)}
             </div>
         </div>
     );

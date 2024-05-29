@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, {useState} from 'react';
 import "./MoviesList.css"
 
-const { kakao } = window;
+const {kakao} = window;
 
 const PlaceSearch = ({onPlaceSelect}) => {
     const [places, setPlaces] = useState([]);

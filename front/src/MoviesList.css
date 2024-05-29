@@ -20,7 +20,7 @@
     overflow: hidden; /* 이미지가 영역을 벗어나지 않도록 설정 */
     margin: 16px;
     border-radius: 5px;
-    box-shadow: 3px 3px 5px rgba(0,0,0,0.1);
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     cursor: pointer;
     outline: none; /* 포커스 시 기본 아웃라인 제거 */

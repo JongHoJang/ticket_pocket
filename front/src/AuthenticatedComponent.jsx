@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 
 const AuthenticatedComponent = () => {
@@ -7,7 +7,7 @@ const AuthenticatedComponent = () => {
     useEffect(() => {
         const token = localStorage.getItem('token');
         axios.get('http://localhost:8081/me', {
-            headers: { 'x-access-token': token }
+            headers: {'x-access-token': token}
         })
             .then(response => {
                 setUserData(response.data);

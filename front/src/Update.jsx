@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import axios from "axios";
-import {Link, useNavigate, useParams} from 'react-router-dom'
+import {useNavigate, useParams} from 'react-router-dom'
 
 function Update() {
     const {id} = useParams();
@@ -8,14 +8,16 @@ function Update() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get('http://localhost:8081/read/'+id)
+        axios.get('http://localhost:8081/read/' + id)
             .then(res => {
                 console.log(res)
-                setValue({ ...value,
+                setValue({
+                    ...value,
                     Name: res.data[0].Name,
                     Email: res.data[0].Email,
                     Password: res.data[0].Password,
-                    Confirm_password: res.data[0].Password, });
+                    Confirm_password: res.data[0].Password,
+                });
             })
             .catch(err => console.log(err))
     }, [])
@@ -27,7 +29,7 @@ function Update() {
     })
     const handleUpdate = (e) => {
         e.preventDefault();
-        axios.put('http://localhost:8081/update/'+id, value)
+        axios.put('http://localhost:8081/update/' + id, value)
             .then(res => {
                 console.log(res)
                 navigate('/')
@@ -50,12 +52,14 @@ function Update() {
                     </div>
                     <div className='mb-2'>
                         <label htmlFor=''>Password</label>
-                        <input type='password' placeholder='Enter Password' className='form-control' value={value.Password}
+                        <input type='password' placeholder='Enter Password' className='form-control'
+                               value={value.Password}
                                onChange={e => setValue({...value, Password: e.target.value})}/>
                     </div>
                     <div className='mb-2'>
                         <label htmlFor=''>Confirm Password</label>
-                        <input type='password' placeholder='Enter Confirm Password' className='form-control' value={value.Confirm_password}
+                        <input type='password' placeholder='Enter Confirm Password' className='form-control'
+                               value={value.Confirm_password}
                                onChange={e => setValue({...value, Confirm_password: e.target.value})}/>
                     </div>
                     <button className='btn btn-success'>Update</button>

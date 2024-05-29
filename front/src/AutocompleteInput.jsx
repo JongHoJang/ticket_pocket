@@ -1,6 +1,4 @@
-import React, {useEffect, useState} from 'react'
-import MoviesList from "./MoviesList";
-import SearchBox from "./SearchBox";
+import React, {useState} from 'react'
 import axios from "axios";
 
 // const apiKey = '59194452085a74c1cb8aae1c975a492a'; // 여기에 본인의 TMDB API 키를 넣어주세요.

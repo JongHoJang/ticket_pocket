@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import MovieSearch from './MovieSearch';
 import PlaceSearch from "./PlaceSearch";
 
 function CreateMovie() {
-    const [title, setTitle] = useState('');
+    const [title, setTitle] = useState('')
     const [date, setDate] = useState('');
     const [cinemaName, setCinemaName] = useState('');
     const [seatNumbers, setSeatNumbers] = useState('');

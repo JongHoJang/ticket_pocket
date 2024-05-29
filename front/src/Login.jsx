@@ -1,7 +1,6 @@
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 import axios from "axios";
-import {Link} from "react-router-dom";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 import './Login.css'
 
@@ -17,7 +16,7 @@ function Login() {
         e.preventDefault();
         axios.post('http://localhost:8081/login', {email, password})
             .then(res => {
-                if(res.data === "로그인 성공") {
+                if (res.data === "로그인 성공") {
                     console.log("로그인 성공")
                     navigate('/movielist')
                 } else {
@@ -29,7 +28,7 @@ function Login() {
             })
             .catch(err => console.log(err));
     }
-    return(
+    return (
         <div className='login-form-container'>
             <div className='login-form-box'>
                 <form onSubmit={handleSubmit}>

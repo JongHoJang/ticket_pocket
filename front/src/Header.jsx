@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import './Header.css'
 
 function Header() {
@@ -19,9 +19,6 @@ function Header() {
         </header>
     );
 }
-
-
-
 
 
 export default Header;
