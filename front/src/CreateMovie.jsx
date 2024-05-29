@@ -24,7 +24,7 @@ function CreateMovie() {
             seatNumbers: seatNumbers,
             review: review,
             companions: companions,
-            posterUrl: posterUrl // 포스터 URL 추가
+            posterUrl: posterUrl
         };
 
         axios.post('http://localhost:8081/upload', formData)
@@ -38,10 +38,10 @@ function CreateMovie() {
 
     const handleMovieSelect = (movieTitle, movie) => {
         setTitle(movieTitle);
-        setPosterUrl(movie.Poster); // 포스터 URL 설정
+        setPosterUrl(movie.Poster);
     };
 
-    const handlePlaceSelection = (place) => { // 수정
+    const handlePlaceSelection = (place) => {
         setCinemaName(place.place_name);
     };
 

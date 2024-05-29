@@ -1,14 +1,19 @@
 import express from 'express'
 import mysql from 'mysql'
 import cors from 'cors'
-import multer from 'multer'
-import path from 'path'
+import cookieParser from 'cookie-parser'
+import dotenv from 'dotenv'
+// import multer from 'multer'
+// import path from 'path'
 
 const app = express();
+
 app.use(cors());
 app.use(express.json());
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
+dotenv.config();
+
 
 const db = mysql.createConnection({
     host: 'localhost',
