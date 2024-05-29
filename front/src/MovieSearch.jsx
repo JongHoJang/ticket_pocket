@@ -1,70 +1,84 @@
 import React, {useEffect, useState} from 'react'
+import "./MoviesList.css"
 
-const apiKey = '59194452085a74c1cb8aae1c975a492a'; // 여기에 본인의 TMDB API 키를 넣어주세요.
-const totalPages = 500; // 가져올 총 페이지 수
+// const apiKey = '59194452085a74c1cb8aae1c975a492a';
+// const totalPages = 10; // 가져올 총 페이지 수
 
-function MovieSearch() {
-    const [movieList, setMovieList] = useState([]);
-    const [search, setSearch] = useState("");
-    const [filterTitle, setFilterTitle] = useState([]);
+const MovieSearch = ({onMovieSelect}) => {
+    const [movies, setMovies] = useState([]);  // API에서 가지고온 영화 목록 저장하는 배열
+    const [searchValue, setSearchValue] = useState('')  // 검색 필드에 값이 저장
+    const [showMoviesList, setShowMoviesList] = useState(false); // 영화 리스트를 표시할지 여부
+    const [movieSelected, setMovieSelected] = useState(false); // 영화가 선택되었는지 여부
+
+
+    //  searchValue를 기반으로 OMDB API에서 영화를 검색
+    const getMovieRequest = async (searchValue) => {
+        const url = `http://www.omdbapi.com/?apikey=f618de14&s=${searchValue}`;
+
+        const response = await fetch(url);
+        const responseJson = await  response.json();
+
+        if (responseJson.Search) {  // 영화가 발견되면
+            console.log(responseJson);
+            setMovies(responseJson.Search)  // Movie 변수를 업데이트
+            setShowMoviesList(true); // 검색된 영화 리스트 보여줌
+        }
+    }
+
+    // 검색필드에 입력값이 변경될때 마다 호출
+    const handleChange = (event) => {
+        const value = event.target.value;
+        setSearchValue(value);
+        setMovieSelected(false); // 영화가 선택되지 않은 상태로 설정
+        if (value !== '') {
+            setMovies([]);
+            setShowMoviesList(true); // 검색어가 있을 때만 영화 리스트를 보여줌
+        } else {
+            setShowMoviesList(false); // 검색어가 없으면 영화 리스트를 숨김
+        }
+    };
 
     useEffect(() => {
-        // 페이지당 영화 가져오는 함수
-        const fetchMoviesByPage = async (page) => {
-            try {
-                const response = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&region=KR&language=ko&page=${page}`);
-                const data = await response.json();
-                return data.results;
-            } catch (error) {
-                console.error('Error fetching movies:', error);
-                return [];
-            }
-        };
-
-        // 모든 페이지의 영화를 가져오고 movieList에 저장
-        const fetchAllMovies = async () => {
-            let allMovies = [];
-            for (let page = 1; page <= totalPages; page++) {
-                const movies = await fetchMoviesByPage(page);
-                allMovies = [...allMovies, ...movies];
-            }
-            const uniqueMovies = allMovies.filter((movie, index, self) =>
-                index === self.findIndex((m) => m.id === movie.id)
-            );
-            setMovieList(uniqueMovies);
-
-            console.log(allMovies)
-        };
-
-        fetchAllMovies().then(uniqueMovies => {
-            console.log(uniqueMovies); // 결과 출력
-        });    }, []); // 페이지가 변경되지 않으므로 빈 배열을 두어 한 번만 호출되도록 설정
-
-
-    const onChange = (e) => {
-        const { value } = e.target;
-        setSearch(value);
-
-        // 입력된 값에 따라 filterTitle 업데이트
-        if (value === "") {
-            setFilterTitle([]); // 검색어가 비어있으면 빈 배열로 설정하여 아무것도 보여주지 않음
-        } else {
-            const filteredMovies = movieList.filter(movie =>
-                movie.title.toLowerCase().replace(" ","").includes(value.toLowerCase().replace(" ",""))
-            );
-            setFilterTitle(filteredMovies);
+        if (searchValue && !movieSelected) {
+            getMovieRequest(searchValue);
         }
+    }, [searchValue, movieSelected]);
+
+    const handleMovieClick = (movie) => {
+        setSearchValue(movie.Title);
+        setShowMoviesList(false); // 영화가 선택되면 영화 리스트를 숨김
+        setMovieSelected(true); // 영화가 선택된 상태로 설정
+        onMovieSelect(movie.Title, movie);  // movie 객체를 전체 전달
     };
 
     return (
         <div>
-            <input type="text" value={search} onChange={onChange} placeholder="검색..." />
-            {/* 검색된 영화 목록 출력 */}
-            {filterTitle.map(movie => <div key={movie.id}>
-                <span>{movie.title}</span>
-                <img src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`} alt={movie.title}/></div>)}
+            <div>
+                <input
+                    className='form-control'
+                    value={searchValue}
+                    onChange={handleChange}
+                    placeholder="영화제목을 검색하세요"
+                />
+            </div>
+
+            {showMoviesList && (
+                <div className="movie-container">
+                    {movies.map((movie, index) => (
+                        <div
+                            key={index}
+                            className="movie-item"
+                            onClick={() => handleMovieClick(movie)}
+                        >
+                            <img src={movie.Poster} alt={movie.Title} />
+                            <p className="movie-sub">{movie.Title} ({movie.Year})</p>
+                        </div>
+                    ))}
+                </div>
+            )}
         </div>
     );
 }
+
 
 export default MovieSearch;

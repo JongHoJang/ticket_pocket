@@ -10,6 +10,7 @@ import MovieList from "./MovieList";
 import CreateMovie from "./CreateMovie"
 import Footer from "./Footer";
 import MovieSearch from "./MovieSearch";
+import PlaceSearch from "./PlaceSearch";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path='/movielist' element={<MovieList />} />
           <Route path='/createmovie' element={<CreateMovie />} />
           <Route path='/moviesearch' element={<MovieSearch />} />
+          <Route path='/placesearch' element={<PlaceSearch />} />
         </Routes>
           <Footer />
       </BrowserRouter>

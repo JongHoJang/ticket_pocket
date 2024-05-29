@@ -8,7 +8,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.static('public'));
-
+app.use(express.urlencoded({ extended: true }));
 
 const db = mysql.createConnection({
     host: 'localhost',
@@ -72,25 +72,54 @@ app.get('/movielist', (req, res) => {
 })
 
 
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'public/images')
-    },
-    filename: (req, file, cb) => {
-        cb(null, file.fieldname + "_" + Date.now() + path.extname(file.originalname))
-    }
-})
 
-const upload = multer({
-    storage: storage
-})
+
+
+
+// multer 사용하여 영화 추가하기 (중간에 오류로 인해 파일이 저장이 안되긴 함)
+// const storage = multer.diskStorage({
+//     destination: (req, file, cb) => {
+//         cb(null, 'public/images');
+//     },
+//     filename: (req, file, cb) => {
+//         cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+//     }
+// });
+//
+// const upload = multer({ storage: storage });
+
+
+// app.post('/upload', upload.single('image'), (req, res) => {
+//     const sql = "INSERT INTO movie_list (`Title`, `Date`, `CinemaName`, `SeatNumbers`, `Reviews`, `Companions`, `MoviePoster`) VALUES (?)";
+//
+//     // 이미지 파일 경로
+//     const imagePath = req.file ? `/images/${req.file.filename}` : null;
+//
+//     const values = [
+//         req.body.title,
+//         req.body.date,
+//         req.body.cinemaName,
+//         req.body.seatNumbers,
+//         req.body.review,
+//         req.body.companions,
+//         imagePath
+//     ];
+//
+//
+//     db.query(sql, [values], (err, result) => {
+//         if (err) {
+//             console.error(err);
+//             return res.json({ Message: "Error" });
+//         }
+//         return res.json({ Status: "Success" });
+//     });
+// });
 
 
 
 // 영화 추가 (movielist db 추가하기)
-app.post('/upload',upload.single('file'), (req, res) => {
+app.post('/upload', (req, res) => {
     const sql = "INSERT INTO movie_list (`Title`, `Date`, `CinemaName`, `SeatNumbers`, `Reviews`, `Companions`, `MoviePoster`) VALUES (?)";
-    console.log(req.body)
 
     const values = [
         req.body.title,
@@ -99,13 +128,17 @@ app.post('/upload',upload.single('file'), (req, res) => {
         req.body.seatNumbers,
         req.body.review,
         req.body.companions,
-        req.file.filename
-    ]
+        req.body.posterUrl
+    ];
+
     db.query(sql, [values], (err, result) => {
-        if(err) return res.json({Message: "Error"});
-        return res.json({Status: "Success"});
-    })
-})
+        if (err) {
+            console.error(err);
+            return res.json({ Message: "Error" });
+        }
+        return res.json({ Status: "Success" });
+    });
+});
 
 
 

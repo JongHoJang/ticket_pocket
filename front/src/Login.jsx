@@ -6,16 +6,8 @@ import {useNavigate} from "react-router-dom";
 import './Login.css'
 
 function Login() {
-    // const [value, setValue] = useState({
-    //     name: '',
-    //     email: '',
-    //     password: '',
-    //     confirm_password:''
-    // })
-
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
     const navigate = useNavigate();
 
 

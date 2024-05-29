@@ -24,7 +24,7 @@ function MovieList() {
             <div className='movie-list'>
                 {movies.map((movie, index) => (
                     <div className='movie-card' key={index}>
-                        <img className='poster-size' src={`http://localhost:8081/images/${movie.MoviePoster}`} alt={movie.Title}/>
+                        <img className='poster-size' src={movie.MoviePoster} alt={movie.Title}/>
                         <h3>{movie.Title}</h3>
                         <p>{movie.Date}</p>
                         <p>{movie.CinemaName}</p>
